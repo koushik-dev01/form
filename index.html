@@ -12,7 +12,7 @@
             --brand-gray: #F4F6F8;
             --glass-bg: rgba(255, 255, 255, 0.6);
             --glass-border: rgba(255, 255, 255, 0.4);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
         body {
@@ -24,7 +24,6 @@
             align-items: center;
             justify-content: center;
             color: var(--brand-dark);
-            /* Subtle red accent in background */
             background-image: radial-gradient(circle at 90% 10%, rgba(199, 46, 41, 0.05) 0%, transparent 40%);
         }
 
@@ -32,18 +31,18 @@
         .main-wrapper {
             display: flex;
             width: 95%;
-            max-width: 1200px;
-            gap: 50px;
+            max-width: 1400px;
+            gap: 60px;
             padding: 40px;
             align-items: flex-start;
         }
 
         /* --- LEFT SIDE: THE FORM --- */
         .form-container {
-            flex: 1.3;
+            flex: 1.8;
             background: white;
-            padding: 40px;
-            border-radius: 20px;
+            padding: 60px;
+            border-radius: 24px;
             box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
@@ -51,48 +50,48 @@
 
         /* Form Header */
         .form-header h2 {
-            font-size: 1.8rem;
-            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            margin: 0 0 15px 0;
             color: var(--brand-dark);
             text-transform: uppercase;
             letter-spacing: -0.5px;
         }
         .form-header p {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
         }
 
         /* Progress Steps */
         .step-progress {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             position: relative;
-            max-width: 90%;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
         }
         .step-progress::after {
             content: '';
             position: absolute;
-            top: 14px;
+            top: 19px;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: #eee;
             z-index: 0;
         }
         .step-dot {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             background: #fff;
-            border: 2px solid #ddd;
+            border: 3px solid #ddd;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             color: #999;
             z-index: 1;
@@ -103,7 +102,7 @@
             border-color: var(--brand-red);
             background: var(--brand-red);
             color: white;
-            box-shadow: 0 0 0 4px rgba(199, 46, 41, 0.1);
+            box-shadow: 0 0 0 5px rgba(199, 46, 41, 0.15);
         }
         .step-dot.completed {
             background: var(--brand-dark);
@@ -118,27 +117,27 @@
         .input-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
         .full-width { grid-column: span 2; }
 
         label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 800;
-            color: #555;
-            margin-bottom: 8px;
+            color: #444;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 16px 20px;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 16px;
             background: #fafafa;
             transition: 0.3s;
             box-sizing: border-box;
@@ -147,86 +146,117 @@
             outline: none;
             border-color: var(--brand-red);
             background: #fff;
-            box-shadow: 0 2px 10px rgba(199, 46, 41, 0.05);
+            box-shadow: 0 4px 15px rgba(199, 46, 41, 0.08);
+        }
+
+        /* Factoring Section Special Styles */
+        .factoring-section {
+            /* background: #fff5f5; */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
         /* Custom File Upload Buttons */
         .upload-item {
             background: #fdfdfd;
-            border: 1px dashed #ccc;
-            padding: 15px;
-            border-radius: 8px;
+            border: 2px dashed #ddd;
+            padding: 20px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             transition: 0.3s;
         }
         .upload-item:hover { border-color: var(--brand-red); background: #fffcfc; }
-        .upload-info h4 { margin: 0; font-size: 0.9rem; color: var(--brand-dark); }
-        .upload-info span { font-size: 0.75rem; color: #888; }
+        .upload-info h4 { margin: 0; font-size: 1rem; color: var(--brand-dark); }
+        .upload-info span { font-size: 0.85rem; color: #888; }
         
+        /* Flex container for the right side of upload */
+        .upload-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .upload-btn-trigger {
             background: #fff;
-            border: 1px solid var(--brand-red);
+            border: 2px solid var(--brand-red);
             color: var(--brand-red);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
+            display: inline-block;
+            margin-bottom: 0; /* Reset label margin */
         }
         .upload-btn-trigger:hover { background: var(--brand-red); color: white; }
-        .file-success { color: #27ae60; font-size: 1.2rem; display: none; margin-left: 10px; }
+        
+        .file-success { color: #27ae60; font-size: 1.5rem; display: none; }
+        
+        /* NEW: Filename style */
+        .file-name {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
 
         /* LEGAL SCROLL WINDOW */
         .legal-scroll {
-            height: 300px;
+            height: 400px;
             overflow-y: auto;
             border: 1px solid #ddd;
             background: #fdfdfd;
-            padding: 20px;
-            font-size: 0.8rem;
+            padding: 25px;
+            font-size: 0.9rem;
             color: #333;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            line-height: 1.6;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
         }
         .legal-scroll h4 {
             color: var(--brand-dark);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1rem;
         }
-        .legal-scroll p { margin-bottom: 10px; }
-        .legal-scroll ul { padding-left: 20px; margin-bottom: 10px; }
 
         /* Buttons */
         .actions {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         .btn {
-            padding: 14px 28px;
-            border-radius: 6px;
+            padding: 16px 32px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: 0.3s;
             text-transform: uppercase;
         }
         .btn-primary {
             background: var(--brand-red);
             color: white;
-            box-shadow: 0 4px 15px rgba(199, 46, 41, 0.2);
+            box-shadow: 0 5px 20px rgba(199, 46, 41, 0.25);
         }
-        .btn-primary:hover { background: #b02420; transform: translateY(-1px); }
+        .btn-primary:hover { background: #b02420; transform: translateY(-2px); }
         .btn-secondary { background: #e0e0e0; color: #555; }
         .btn-secondary:hover { background: #d0d0d0; }
 
@@ -236,13 +266,13 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
-            padding-top: 20px;
+            padding-top: 40px;
         }
 
         .brand-showcase h3 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--brand-dark);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.1;
         }
         .highlight-red { color: var(--brand-red); }
@@ -250,41 +280,41 @@
         /* Glass Cards */
         .feature-grid {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
         }
         .feature-card {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 25px;
+            border-radius: 16px;
             text-align: center;
             flex: 1;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
         .feature-icon {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: var(--brand-red);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: block;
         }
-        .feature-card strong { font-size: 0.8rem; color: var(--brand-dark); text-transform: uppercase; }
+        .feature-card strong { font-size: 0.9rem; color: var(--brand-dark); text-transform: uppercase; }
 
         /* Testimonial */
         .testimonial-card {
             background: linear-gradient(135deg, #ffffff 0%, #fffbfb 100%);
             border: 1px solid white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
             position: relative;
         }
         .quote-icon {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 3rem;
+            top: 25px;
+            left: 25px;
+            font-size: 4rem;
             color: rgba(199, 46, 41, 0.08);
             font-family: serif;
         }
@@ -293,9 +323,9 @@
             z-index: 1;
             color: #444;
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.6;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
         .user-profile {
             display: flex;
@@ -303,8 +333,8 @@
             gap: 15px;
         }
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: var(--brand-dark);
             border-radius: 50%;
             color: white;
@@ -312,10 +342,10 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
-        .user-info strong { display: block; font-size: 0.9rem; }
-        .user-info span { font-size: 0.8rem; color: #888; }
+        .user-info strong { display: block; font-size: 1rem; }
+        .user-info span { font-size: 0.9rem; color: #888; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
@@ -323,10 +353,10 @@
         }
 
         /* Responsive */
-        @media (max-width: 900px) {
-            .main-wrapper { flex-direction: column-reverse; width: 100%; padding: 20px; gap: 30px; }
-            .form-container, .visual-container { width: 100%; box-shadow: none; padding: 20px; }
-            .form-container { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        @media (max-width: 1100px) {
+            .main-wrapper { flex-direction: column-reverse; width: 100%; padding: 20px; gap: 40px; }
+            .form-container, .visual-container { width: 100%; box-shadow: none; padding: 30px; }
+            .form-container { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         }
     </style>
 </head>
@@ -371,11 +401,25 @@
                             <label>DOT Number</label>
                             <input type="text" placeholder="US DOT #" required>
                         </div>
+                        
                         <div class="full-width">
-                            <label>Company Address</label>
-                            <input type="text" placeholder="Street, City, State, ZIP" required>
+                            <label>Street Address</label>
+                            <input type="text" placeholder="1234 Logistics Way, Suite 100" required>
+                        </div>
+                        <div>
+                            <label>City</label>
+                            <input type="text" placeholder="City" required>
+                        </div>
+                        <div>
+                            <label>State</label>
+                            <input type="text" placeholder="State" required>
+                        </div>
+                        <div>
+                            <label>ZIP Code</label>
+                            <input type="text" placeholder="12345" required>
                         </div>
                     </div>
+                    
                     <div class="actions" style="justify-content: flex-end;">
                         <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next Step &rarr;</button>
                     </div>
@@ -399,19 +443,37 @@
                             <label>Equipment Types</label>
                             <select>
                                 <option>Dry Van</option>
+                                <option>Sprinter Van</option>
                                 <option>Reefer</option>
                                 <option>Flatbed</option>
                                 <option>Power Only</option>
                                 <option>Box Truck</option>
                             </select>
                         </div>
+                        
                         <div class="full-width">
                             <label>Factoring Status</label>
-                            <select>
-                                <option>No, I bill directly (Standard Net 30)</option>
-                                <option>Yes, I use a factoring company</option>
+                            <select id="factoringStatus" onchange="toggleFactoring()">
+                                <option value="no">No, I bill directly (Standard Net 30)</option>
+                                <option value="yes">Yes, I use a factoring company</option>
                             </select>
                         </div>
+
+                        <div class="full-width factoring-section" id="factoring-details">
+                            <div class="full-width">
+                                <label>Factoring Company Name</label>
+                                <input type="text" class="factoring-input">
+                            </div>
+                            <div>
+                                <label>Factoring Email</label>
+                                <input type="email" class="factoring-input">
+                            </div>
+                            <div>
+                                <label>Factoring Phone</label>
+                                <input type="tel" class="factoring-input">
+                            </div>
+                        </div>
+
                     </div>
                     <div class="actions">
                         <button type="button" class="btn btn-secondary" onclick="nextStep(1)">&larr; Back</button>
@@ -420,17 +482,18 @@
                 </div>
 
                 <div class="form-step" id="step3">
-                    <p style="font-size:0.85rem; color:#555; margin-bottom:20px;">Upload documents to verify eligibility. <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.</p>
+                    <p style="font-size:1rem; color:#555; margin-bottom:30px;">Upload documents to verify eligibility. <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.</p>
 
                     <div class="upload-item">
                         <div class="upload-info">
                             <h4>Signed W-9 Form</h4>
                             <span>Current year W-9</span>
                         </div>
-                        <div>
+                        <div class="upload-actions">
                             <span class="file-success" id="check-w9">✓</span>
+                            <span class="file-name" id="name-w9"></span>
                             <label class="upload-btn-trigger">
-                                Select File <input type="file" hidden onchange="handleFile(this, 'check-w9')">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-w9', 'name-w9')">
                             </label>
                         </div>
                     </div>
@@ -440,10 +503,11 @@
                             <h4>MC Authority Letter</h4>
                             <span>Active Operating Authority</span>
                         </div>
-                        <div>
+                        <div class="upload-actions">
                             <span class="file-success" id="check-mc">✓</span>
+                            <span class="file-name" id="name-mc"></span>
                             <label class="upload-btn-trigger">
-                                Select File <input type="file" hidden onchange="handleFile(this, 'check-mc')">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-mc', 'name-mc')">
                             </label>
                         </div>
                     </div>
@@ -453,10 +517,67 @@
                             <h4>Certificate of Insurance</h4>
                             <span>$100k Cargo / $1M Liability</span>
                         </div>
-                        <div>
+                        <div class="upload-actions">
                             <span class="file-success" id="check-ins">✓</span>
+                            <span class="file-name" id="name-ins"></span>
                             <label class="upload-btn-trigger">
-                                Select File <input type="file" hidden onchange="handleFile(this, 'check-ins')">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-ins', 'name-ins')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Owner Driver License</h4>
+                            <span>Valid Government ID</span>
+                        </div>
+                        <div class="upload-actions">
+                            <span class="file-success" id="check-adl">✓</span>
+                            <span class="file-name" id="name-adl"></span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-adl', 'name-adl')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Driver CDL</h4>
+                            <span>Commercial Driver's License</span>
+                        </div>
+                        <div class="upload-actions">
+                            <span class="file-success" id="check-cdl">✓</span>
+                            <span class="file-name" id="name-cdl"></span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-cdl', 'name-cdl')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Truck Side Photo</h4>
+                            <span>Showing Company Name/DOT</span>
+                        </div>
+                        <div class="upload-actions">
+                            <span class="file-success" id="check-truck">✓</span>
+                            <span class="file-name" id="name-truck"></span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-truck', 'name-truck')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Inside Trailer Photo</h4>
+                            <span>Clean/Dry Verification</span>
+                        </div>
+                        <div class="upload-actions">
+                            <span class="file-success" id="check-trailer">✓</span>
+                            <span class="file-name" id="name-trailer"></span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-trailer', 'name-trailer')">
                             </label>
                         </div>
                     </div>
@@ -571,41 +692,62 @@
     <script>
         // --- FIXED MULTI-STEP LOGIC ---
         function nextStep(targetStep) {
-            // 1. Show the correct form section
             document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
             document.getElementById('step' + targetStep).classList.add('active');
 
-            // 2. Loop through all 4 dots to strictly enforce state
             for (let i = 1; i <= 4; i++) {
                 const dot = document.getElementById('dot' + i);
-                
-                // Reset to base state first to clear old classes
                 dot.className = 'step-dot';
-                
                 if (i < targetStep) {
-                    // Previous Steps: Active Color + Completed Checkmark
                     dot.classList.add('active');
                     dot.classList.add('completed');
                     dot.innerHTML = '✓';
                 } else if (i === targetStep) {
-                    // Current Step: Active Color + Number
                     dot.classList.add('active');
                     dot.innerHTML = i;
                 } else {
-                    // Future Steps: Gray + Number
                     dot.innerHTML = i;
                 }
             }
         }
 
-        // File Upload Logic
-        function handleFile(input, checkId) {
+        // --- Factoring Logic ---
+        function toggleFactoring() {
+            const statusSelect = document.getElementById('factoringStatus');
+            const detailsDiv = document.getElementById('factoring-details');
+            const inputs = document.querySelectorAll('.factoring-input');
+
+            if (statusSelect.value === 'yes') {
+                detailsDiv.style.display = 'grid';
+                inputs.forEach(input => input.setAttribute('required', 'true'));
+            } else {
+                detailsDiv.style.display = 'none';
+                inputs.forEach(input => input.removeAttribute('required'));
+                inputs.forEach(input => input.value = '');
+            }
+        }
+
+        // --- NEW: File Upload Logic with Filename Display ---
+        function handleFile(input, checkId, nameId) {
             if (input.files && input.files[0]) {
+                // 1. Show the Green Checkmark
                 document.getElementById(checkId).style.display = 'inline';
-                input.parentElement.innerText = "File Attached";
-                input.parentElement.style.background = "#C72E29";
-                input.parentElement.style.color = "white";
-                input.parentElement.style.border = "none";
+                
+                // 2. Display the Filename next to the checkmark
+                const nameSpan = document.getElementById(nameId);
+                if (nameSpan) {
+                    nameSpan.textContent = input.files[0].name;
+                }
+
+                // 3. Change Button Style (Visually indicate "Done")
+                const label = input.parentElement;
+                label.style.background = "#C72E29";
+                label.style.color = "white";
+                label.style.border = "none";
+                
+                // 4. Update Button Text (Without deleting the input element)
+                // We access the text node (child 0) directly so we don't overwrite the <input> tag
+                label.childNodes[0].nodeValue = "Change File ";
             }
         }
 
