@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Freight - Carrier Registration</title>
+    <style>
+        /* --- BRAND VARIABLES --- */
+        :root {
+            --brand-red: #C72E29;
+            --brand-dark: #1A1A1A;
+            --brand-gray: #F4F6F8;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #fdfdfd 0%, #f0f0f0 100%);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-dark);
+            /* Subtle red accent in background */
+            background-image: radial-gradient(circle at 90% 10%, rgba(199, 46, 41, 0.05) 0%, transparent 40%);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-wrapper {
+            display: flex;
+            width: 95%;
+            max-width: 1200px;
+            gap: 50px;
+            padding: 40px;
+            align-items: flex-start;
+        }
+
+        /* --- LEFT SIDE: THE FORM --- */
+        .form-container {
+            flex: 1.3;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Form Header */
+        .form-header h2 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            color: var(--brand-dark);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+        .form-header p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Progress Steps */
+        .step-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .step-progress::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #eee;
+            z-index: 0;
+        }
+        .step-dot {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #999;
+            z-index: 1;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .step-dot.active {
+            border-color: var(--brand-red);
+            background: var(--brand-red);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(199, 46, 41, 0.1);
+        }
+        .step-dot.completed {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+            color: white;
+        }
+
+        /* Form Fields */
+        .form-step { display: none; animation: fadeIn 0.4s ease; }
+        .form-step.active { display: block; }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .full-width { grid-column: span 2; }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #555;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fafafa;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--brand-red);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(199, 46, 41, 0.05);
+        }
+
+        /* Custom File Upload Buttons */
+        .upload-item {
+            background: #fdfdfd;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+        .upload-item:hover { border-color: var(--brand-red); background: #fffcfc; }
+        .upload-info h4 { margin: 0; font-size: 0.9rem; color: var(--brand-dark); }
+        .upload-info span { font-size: 0.75rem; color: #888; }
+        
+        .upload-btn-trigger {
+            background: #fff;
+            border: 1px solid var(--brand-red);
+            color: var(--brand-red);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-btn-trigger:hover { background: var(--brand-red); color: white; }
+        .file-success { color: #27ae60; font-size: 1.2rem; display: none; margin-left: 10px; }
+
+        /* LEGAL SCROLL WINDOW */
+        .legal-scroll {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            background: #fdfdfd;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #333;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .legal-scroll h4 {
+            color: var(--brand-dark);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .legal-scroll p { margin-bottom: 10px; }
+        .legal-scroll ul { padding-left: 20px; margin-bottom: 10px; }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 14px 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-primary {
+            background: var(--brand-red);
+            color: white;
+            box-shadow: 0 4px 15px rgba(199, 46, 41, 0.2);
+        }
+        .btn-primary:hover { background: #b02420; transform: translateY(-1px); }
+        .btn-secondary { background: #e0e0e0; color: #555; }
+        .btn-secondary:hover { background: #d0d0d0; }
+
+        /* --- RIGHT SIDE: VISUALS --- */
+        .visual-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-top: 20px;
+        }
+
+        .brand-showcase h3 {
+            font-size: 2.2rem;
+            color: var(--brand-dark);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        .highlight-red { color: var(--brand-red); }
+
+        /* Glass Cards */
+        .feature-grid {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--brand-red);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .feature-card strong { font-size: 0.8rem; color: var(--brand-dark); text-transform: uppercase; }
+
+        /* Testimonial */
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fffbfb 100%);
+            border: 1px solid white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            position: relative;
+        }
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            color: rgba(199, 46, 41, 0.08);
+            font-family: serif;
+        }
+        .testimonial-text {
+            position: relative;
+            z-index: 1;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-dark);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .user-info strong { display: block; font-size: 0.9rem; }
+        .user-info span { font-size: 0.8rem; color: #888; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-wrapper { flex-direction: column-reverse; width: 100%; padding: 20px; gap: 30px; }
+            .form-container, .visual-container { width: 100%; box-shadow: none; padding: 20px; }
+            .form-container { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Carrier <span style="color:var(--brand-red)">Registration</span></h2>
+                <p>Complete your profile to access the Quick Freight network.</p>
+            </div>
+
+            <div class="step-progress">
+                <div class="step-dot active" id="dot1" onclick="nextStep(1)">1</div>
+                <div class="step-dot" id="dot2" onclick="nextStep(2)">2</div>
+                <div class="step-dot" id="dot3" onclick="nextStep(3)">3</div>
+                <div class="step-dot" id="dot4" onclick="nextStep(4)">4</div>
+            </div>
+
+            <form id="packetForm">
+                
+                <div class="form-step active" id="step1">
+                    <div class="input-grid">
+                        <div class="full-width">
+                            <label>Company Legal Name</label>
+                            <input type="text" placeholder="As it appears on MC Authority" required>
+                        </div>
+                        <div>
+                            <label>DBA (If Applicable)</label>
+                            <input type="text" placeholder="Doing Business As">
+                        </div>
+                        <div>
+                            <label>Tax ID (EIN)</label>
+                            <input type="text" placeholder="XX-XXXXXXX" required>
+                        </div>
+                        <div>
+                            <label>MC Number</label>
+                            <input type="text" placeholder="MC-XXXXXX" required>
+                        </div>
+                        <div>
+                            <label>DOT Number</label>
+                            <input type="text" placeholder="US DOT #" required>
+                        </div>
+                        <div class="full-width">
+                            <label>Company Address</label>
+                            <input type="text" placeholder="Street, City, State, ZIP" required>
+                        </div>
+                    </div>
+                    <div class="actions" style="justify-content: flex-end;">
+                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step2">
+                    <div class="input-grid">
+                        <div class="full-width">
+                            <label>Primary Contact Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div>
+                            <label>Phone Number</label>
+                            <input type="tel" required>
+                        </div>
+                        <div>
+                            <label>Email (Rate Cons)</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="full-width">
+                            <label>Equipment Types</label>
+                            <select>
+                                <option>Dry Van</option>
+                                <option>Reefer</option>
+                                <option>Flatbed</option>
+                                <option>Power Only</option>
+                                <option>Box Truck</option>
+                            </select>
+                        </div>
+                        <div class="full-width">
+                            <label>Factoring Status</label>
+                            <select>
+                                <option>No, I bill directly (Standard Net 30)</option>
+                                <option>Yes, I use a factoring company</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(1)">&larr; Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step3">
+                    <p style="font-size:0.85rem; color:#555; margin-bottom:20px;">Upload documents to verify eligibility. <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.</p>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Signed W-9 Form</h4>
+                            <span>Current year W-9</span>
+                        </div>
+                        <div>
+                            <span class="file-success" id="check-w9">✓</span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-w9')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>MC Authority Letter</h4>
+                            <span>Active Operating Authority</span>
+                        </div>
+                        <div>
+                            <span class="file-success" id="check-mc">✓</span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-mc')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>Certificate of Insurance</h4>
+                            <span>$100k Cargo / $1M Liability</span>
+                        </div>
+                        <div>
+                            <span class="file-success" id="check-ins">✓</span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden onchange="handleFile(this, 'check-ins')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(2)">&larr; Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step4">
+                    <label>Broker-Carrier Transportation Agreement</label>
+                    <div class="legal-scroll">
+                        <h4>1. RECITALS & PARTIES</h4>
+                        <p>This "AGREEMENT" is made and entered into between the licensed motor carrier ("CARRIER") and QUICK FREIGHT LOGISTICS LLC ("BROKER"), a licensed broker of property authorized by the Federal Highway Administration, Docket No. MC# 1178473.</p>
+                        
+                        <h4>2. TERM AND TERMINATION</h4>
+                        <p>The term of this Agreement shall be for the period of one year and automatically renew year after year. Either party may terminate this Agreement upon fifteen (15) days written notice.</p>
+                        
+                        <h4>3. INSURANCE REQUIREMENTS</h4>
+                        <p>Carrier shall procure and maintain public liability insurance in at least the minimum amount required by the FMCSA. In addition, Carrier shall procure and maintain <strong>cargo insurance in the amount of $100,000</strong> for loss and damage to property. The cargo insurance shall have no exclusions or restrictions that would not be accepted by the FMCSA.</p>
+                        
+                        <h4>4. SAFETY & COMPLIANCE</h4>
+                        <p>Carrier agrees to abide by all DOT Regulations and Requirements, including Vehicle Inspections, Safety Procedures, and Driver Logs. Trailers shall be clean, dry, free of defects, and shall NOT have been used to transport garbage, hazardous waste, solid waste, or toxic materials.</p>
+                        
+                        <h4>5. PAYMENT TERMS</h4>
+                        <p>Broker agrees to pay Carrier for transportation services within <strong>30 days</strong> of receipt by Broker of Carrier's freight invoice, Bill of Lading, and signed Rate Confirmation.</p>
+                        
+                        <h4>6. NON-SOLICITATION</h4>
+                        <p>Carrier agrees that it will at no time during this agreement and for a period of one (1) year after termination, directly or indirectly, solicit, divert, back-solicit, or perform services for any account of Broker. If Carrier violates this, Carrier shall be liable for normal commissions Broker would have received.</p>
+                        
+                        <h4>7. SUBCONTRACT PROHIBITION</h4>
+                        <p>CARRIER shall not re-broker, co-broker, subcontract, assign, or transfer shipments to any other entity without prior written consent of BROKER. Violation of this prohibition shall nullify any liability limitations.</p>
+                        
+                        <h4>8. INDEMNIFICATION & INDEPENDENT CONTRACTOR</h4>
+                        <p>Carrier is an independent contractor and not an employee of Broker. Carrier agrees to indemnify and hold harmless Broker from any claims arising out of the Carrier's operations.</p>
+                        
+                        <h4>9. APPENDIX A: FOOD SAFETY (FSMA)</h4>
+                        <ul>
+                            <li><strong>Pre-Cooling:</strong> Carrier must pre-cool trailer to shipper's stipulated temperature.</li>
+                            <li><strong>Maintained Temp:</strong> Carrier must maintain temperature at all times.</li>
+                            <li><strong>Seals:</strong> Driver must verify seals and record numbers on BOL.</li>
+                            <li><strong>Sanitary Condition:</strong> Carrier must comply with the Sanitary Food Transportation Act.</li>
+                        </ul>
+
+                        <h4>10. GOVERNING LAW</h4>
+                        <p>This Agreement shall be governed by and interpreted under the laws of the State of OHIO.</p>
+                    </div>
+
+                    <div class="input-grid">
+                        <div class="full-width">
+                            <label>Digital Signature (Type Full Name)</label>
+                            <input type="text" placeholder="Authorized Representative" required>
+                        </div>
+                        <div>
+                            <label>Title</label>
+                            <input type="text" required>
+                        </div>
+                        <div>
+                            <label>Date</label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(3)">&larr; Back</button>
+                        <button type="submit" class="btn btn-primary">AGREE & SUBMIT PACKET</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="visual-container">
+            <div class="brand-showcase">
+                <h3>Reliable Freight.<br> <span class="highlight-red">Consistent Miles.</span></h3>
+                <p style="color:#666; line-height:1.6;">Join the Quick Freight network and get access to premium loads across North America.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <strong>QuickPay<br>Available</strong>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <strong>24/7<br>Support</strong>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚛</span>
+                    <strong>Dedicated<br>Lanes</strong>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-icon">“</div>
+                <p class="testimonial-text">
+                    "Quick Freight has been a solid partner for our fleet. The setup was easy, they pay on time, and the dispatch team actually picks up the phone."
+                </p>
+                <div class="user-profile">
+                    <div class="avatar">JM</div>
+                    <div class="user-info">
+                        <strong>Jason Miller</strong>
+                        <span>Owner Operator, OH</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- FIXED MULTI-STEP LOGIC ---
+        function nextStep(targetStep) {
+            // 1. Show the correct form section
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step' + targetStep).classList.add('active');
+
+            // 2. Loop through all 4 dots to strictly enforce state
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById('dot' + i);
+                
+                // Reset to base state first to clear old classes
+                dot.className = 'step-dot';
+                
+                if (i < targetStep) {
+                    // Previous Steps: Active Color + Completed Checkmark
+                    dot.classList.add('active');
+                    dot.classList.add('completed');
+                    dot.innerHTML = '✓';
+                } else if (i === targetStep) {
+                    // Current Step: Active Color + Number
+                    dot.classList.add('active');
+                    dot.innerHTML = i;
+                } else {
+                    // Future Steps: Gray + Number
+                    dot.innerHTML = i;
+                }
+            }
+        }
+
+        // File Upload Logic
+        function handleFile(input, checkId) {
+            if (input.files && input.files[0]) {
+                document.getElementById(checkId).style.display = 'inline';
+                input.parentElement.innerText = "File Attached";
+                input.parentElement.style.background = "#C72E29";
+                input.parentElement.style.color = "white";
+                input.parentElement.style.border = "none";
+            }
+        }
+
+        // Form Submit
+        document.getElementById('packetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = "SUBMITTING...";
+            btn.style.background = "#1A1A1A";
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert("Agreement Signed! Your carrier packet has been securely transmitted to the Quick Freight compliance team.");
+                btn.innerHTML = originalText;
+                btn.style.background = "#C72E29";
+                btn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
