@@ -136,6 +136,18 @@
         .full-width {
             grid-column: span 2;
         }
+        
+        /* Section Headers inside form */
+        .section-title {
+            grid-column: span 2;
+            font-size: 1rem;
+            color: var(--brand-red);
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: -10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
 
         label {
             display: block;
@@ -167,16 +179,56 @@
             background: #fff;
             box-shadow: 0 4px 15px rgba(199, 46, 41, 0.08);
         }
+        
+        /* Checkbox Styling */
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            transition: 0.2s;
+        }
 
-        /* Factoring Section Special Styles */
-        .factoring-section {
-            /* background: #fff5f5; */
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-            display: none;
+        .checkbox-item:hover {
+            border-color: #ccc;
+            background: #f0f0f0;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-item span {
+            font-size: 0.95rem;
+            color: #444;
+            font-weight: 600;
+        }
+
+        /* Conditional Sections */
+        .conditional-section {
+            display: none; /* Hidden by default */
             grid-template-columns: 1fr 1fr;
             gap: 25px;
+            grid-column: span 2;
+            background: #fffdfd;
+            border: 1px solid #f0f0f0;
+            padding: 25px;
+            border-radius: 12px;
         }
 
         /* Custom File Upload Buttons */
@@ -208,7 +260,6 @@
             color: #888;
         }
 
-        /* Flex container for the right side of upload */
         .upload-actions {
             display: flex;
             align-items: center;
@@ -227,7 +278,6 @@
             transition: 0.2s;
             display: inline-block;
             margin-bottom: 0;
-            /* Reset label margin */
         }
 
         .upload-btn-trigger:hover {
@@ -241,7 +291,6 @@
             display: none;
         }
 
-        /* NEW: Filename style */
         .file-name {
             font-size: 0.85rem;
             color: #666;
@@ -324,7 +373,6 @@
             padding-top: 40px;
         }
 
-        /* Brand Logo Style */
         .brand-logo {
             width: 100%;
             max-width: 350px;
@@ -342,11 +390,6 @@
             line-height: 1.1;
         }
 
-        .highlight-red {
-            color: var(--brand-red);
-        }
-
-        /* Glass Cards */
         .feature-grid {
             display: flex;
             gap: 20px;
@@ -377,7 +420,6 @@
             text-transform: uppercase;
         }
 
-        /* Testimonial */
         .testimonial-card {
             background: linear-gradient(135deg, #ffffff 0%, #fffbfb 100%);
             border: 1px solid white;
@@ -436,18 +478,10 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive */
         @media (max-width: 1100px) {
             .main-wrapper {
                 flex-direction: column-reverse;
@@ -455,16 +489,20 @@
                 padding: 20px;
                 gap: 40px;
             }
-
-            .form-container,
-            .visual-container {
+            .form-container, .visual-container {
                 width: 100%;
                 box-shadow: none;
                 padding: 30px;
             }
-
             .form-container {
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+            .checkbox-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .checkbox-item {
+                width: 100%;
             }
         }
     </style>
@@ -562,14 +600,24 @@
                         </div>
 
                         <div class="full-width">
-                            <label>Factoring Status</label>
-                            <select id="factoringStatus" onchange="toggleFactoring()">
-                                <option value="no">No, I bill directly (Standard Net 30)</option>
-                                <option value="yes">Yes, I use a factoring company</option>
-                            </select>
+                            <label>Carrier Payment Authorization</label>
+                            <div style="margin-top: 5px; margin-bottom: 10px;">
+                                <label style="font-weight: 600; font-size: 0.9rem; color:#666;">Factoring Status</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="factorYes" onchange="toggleFactoringCheck('yes')">
+                                        <span>Yes</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="factorNo" onchange="toggleFactoringCheck('no')">
+                                        <span>No</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="full-width factoring-section" id="factoring-details">
+                        <div class="conditional-section" id="factoring-details">
+                            <div class="section-title">Factoring Company Details</div>
                             <div class="full-width">
                                 <label>Factoring Company Name</label>
                                 <input type="text" class="factoring-input">
@@ -582,6 +630,53 @@
                                 <label>Factoring Phone</label>
                                 <input type="tel" class="factoring-input">
                             </div>
+                            <div class="full-width">
+                                <label>Factoring Address</label>
+                                <input type="text" class="factoring-input" placeholder="Street, City, State, ZIP">
+                            </div>
+                        </div>
+
+                        <div class="conditional-section" id="direct-pay-details">
+                            <div class="section-title">Bank Information (Direct Deposit / ACH)</div>
+                            
+                            <div class="full-width">
+                                <label>Bank Name</label>
+                                <input type="text" class="bank-input">
+                            </div>
+                            <div class="full-width">
+                                <label>Bank Address</label>
+                                <input type="text" class="bank-input" placeholder="Street, City, State, ZIP">
+                            </div>
+                            <div>
+                                <label>Account Number</label>
+                                <input type="text" class="bank-input">
+                            </div>
+                            <div>
+                                <label>Account Routing</label>
+                                <input type="text" class="bank-input">
+                            </div>
+                            <div>
+                                <label>Remittance Email</label>
+                                <input type="email" class="bank-input">
+                            </div>
+                            <div>
+                                <label>Remittance Address</label>
+                                <input type="text" class="bank-input">
+                            </div>
+
+                            <div class="section-title" style="margin-top: 15px;">Payment Terms</div>
+                            <div class="full-width">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item" style="border-color: var(--brand-red); background:#fff5f5;">
+                                        <input type="checkbox" id="termQuick" class="bank-input" onchange="togglePaymentTerm('quick')">
+                                        <span style="color:var(--brand-red)">2 DAY QUICKPAY at 2%</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="termStd" class="bank-input" onchange="togglePaymentTerm('std')">
+                                        <span>STANDARD PAY (Net 25 Days)</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -593,7 +688,8 @@
 
                 <div class="form-step" id="step3">
                     <p style="font-size:1rem; color:#555; margin-bottom:30px;">Upload documents to verify eligibility.
-                        <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.</p>
+                        <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.
+                    </p>
 
                     <div class="upload-item">
                         <div class="upload-info">
@@ -700,6 +796,21 @@
                         </div>
                     </div>
 
+                    <div class="upload-item">
+                        <div class="upload-info">
+                            <h4>COPY OF NOA - Notice Of Assignment</h4>
+                            <span>Required if Factoring</span>
+                        </div>
+                        <div class="upload-actions">
+                            <span class="file-success" id="check-noa">✓</span>
+                            <span class="file-name" id="name-noa"></span>
+                            <label class="upload-btn-trigger">
+                                Select File <input type="file" hidden
+                                    onchange="handleFile(this, 'check-noa', 'name-noa')">
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="actions">
                         <button type="button" class="btn btn-secondary" onclick="nextStep(2)">&larr; Back</button>
                         <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next Step &rarr;</button>
@@ -794,8 +905,9 @@
         <div class="visual-container">
             <div class="brand-showcase">
                 <img src="Logo1.jpeg" alt="Quick Freight Logistics LLC Logo" class="brand-logo">
-                <p style="color:#666; line-height:1.6;">Join the Quick Freight network and get access to premium loads
-                    across North America.</p>
+                <p style="color:#666; line-height:1.6;">We must have the following in order to release Load Confirmation
+                    and
+                    to insure your eligibility to load at origin.</p>
             </div>
 
             <div class="feature-grid">
@@ -832,7 +944,7 @@
     </div>
 
     <script>
-        // --- FIXED MULTI-STEP LOGIC ---
+        // --- MULTI-STEP LOGIC ---
         function nextStep(targetStep) {
             document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
             document.getElementById('step' + targetStep).classList.add('active');
@@ -853,42 +965,79 @@
             }
         }
 
-        // --- Factoring Logic ---
-        function toggleFactoring() {
-            const statusSelect = document.getElementById('factoringStatus');
-            const detailsDiv = document.getElementById('factoring-details');
-            const inputs = document.querySelectorAll('.factoring-input');
+        // --- NEW: Toggle Factoring Logic ---
+        function toggleFactoringCheck(selection) {
+            const yesBox = document.getElementById('factorYes');
+            const noBox = document.getElementById('factorNo');
+            
+            const factoringSection = document.getElementById('factoring-details');
+            const factoringInputs = document.querySelectorAll('.factoring-input');
+            
+            const bankSection = document.getElementById('direct-pay-details');
+            const bankInputs = document.querySelectorAll('.bank-input');
 
-            if (statusSelect.value === 'yes') {
-                detailsDiv.style.display = 'grid';
-                inputs.forEach(input => input.setAttribute('required', 'true'));
-            } else {
-                detailsDiv.style.display = 'none';
-                inputs.forEach(input => input.removeAttribute('required'));
-                inputs.forEach(input => input.value = '');
+            if (selection === 'yes') {
+                if (yesBox.checked) {
+                    noBox.checked = false; // Uncheck No
+                    
+                    // Show Factoring, Hide Bank
+                    factoringSection.style.display = 'grid';
+                    bankSection.style.display = 'none';
+
+                    // Set/Remove Required
+                    factoringInputs.forEach(input => input.setAttribute('required', 'true'));
+                    bankInputs.forEach(input => input.removeAttribute('required'));
+                } else {
+                    // Unchecked Yes -> Hide All
+                    factoringSection.style.display = 'none';
+                    factoringInputs.forEach(input => input.removeAttribute('required'));
+                }
+            } else if (selection === 'no') {
+                if (noBox.checked) {
+                    yesBox.checked = false; // Uncheck Yes
+
+                    // Hide Factoring, Show Bank
+                    factoringSection.style.display = 'none';
+                    bankSection.style.display = 'grid';
+
+                    // Set/Remove Required
+                    factoringInputs.forEach(input => input.removeAttribute('required'));
+                    bankInputs.forEach(input => {
+                        // We set required, but NOT for checkboxes
+                        if(input.type !== 'checkbox') input.setAttribute('required', 'true');
+                    });
+                } else {
+                    // Unchecked No -> Hide All
+                    bankSection.style.display = 'none';
+                    bankInputs.forEach(input => input.removeAttribute('required'));
+                }
             }
         }
 
-        // --- NEW: File Upload Logic with Filename Display ---
+        // --- NEW: Toggle Payment Terms (Exclusive Checkboxes) ---
+        function togglePaymentTerm(term) {
+            const quickBox = document.getElementById('termQuick');
+            const stdBox = document.getElementById('termStd');
+
+            if (term === 'quick' && quickBox.checked) {
+                stdBox.checked = false;
+            } else if (term === 'std' && stdBox.checked) {
+                quickBox.checked = false;
+            }
+        }
+
+        // --- File Upload Logic ---
         function handleFile(input, checkId, nameId) {
             if (input.files && input.files[0]) {
-                // 1. Show the Green Checkmark
                 document.getElementById(checkId).style.display = 'inline';
-
-                // 2. Display the Filename next to the checkmark
                 const nameSpan = document.getElementById(nameId);
                 if (nameSpan) {
                     nameSpan.textContent = input.files[0].name;
                 }
-
-                // 3. Change Button Style (Visually indicate "Done")
                 const label = input.parentElement;
                 label.style.background = "#C72E29";
                 label.style.color = "white";
                 label.style.border = "none";
-
-                // 4. Update Button Text (Without deleting the input element)
-                // We access the text node (child 0) directly so we don't overwrite the <input> tag
                 label.childNodes[0].nodeValue = "Change File ";
             }
         }
@@ -904,7 +1053,7 @@
             btn.disabled = true;
 
             setTimeout(() => {
-                alert("Agreement Signed! Your carrier packet has been securely transmitted to the Quick Freight compliance team.");
+                alert("Agreement Signed! Your carrier packet has been securely transmitted.");
                 btn.innerHTML = originalText;
                 btn.style.background = "#C72E29";
                 btn.disabled = false;
