@@ -230,6 +230,18 @@
             padding: 25px;
             border-radius: 12px;
         }
+        
+        /* Important Note Box */
+        .important-note {
+            background: #fff8f8;
+            border-left: 4px solid var(--brand-red);
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            border-radius: 4px;
+            margin-top: -10px;
+        }
 
         /* Custom File Upload Buttons */
         .upload-item {
@@ -302,7 +314,7 @@
             display: inline-block;
         }
 
-        /* LEGAL SCROLL WINDOW */
+        /* LEGAL & RATE SCROLL WINDOW */
         .legal-scroll {
             height: 400px;
             overflow-y: auto;
@@ -324,6 +336,43 @@
             margin-top: 20px;
             margin-bottom: 12px;
             font-size: 1rem;
+        }
+
+        /* Rate Sheet Styling */
+        .rate-container {
+            background: #fcfcfc;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .rate-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rate-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .rate-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rate-label {
+            font-weight: 700;
+            color: var(--brand-dark);
+        }
+
+        .rate-value {
+            color: var(--brand-red);
+            font-weight: 600;
         }
 
         /* Buttons */
@@ -523,6 +572,8 @@
                 <div class="step-dot" id="dot2" onclick="nextStep(2)">2</div>
                 <div class="step-dot" id="dot3" onclick="nextStep(3)">3</div>
                 <div class="step-dot" id="dot4" onclick="nextStep(4)">4</div>
+                <div class="step-dot" id="dot5" onclick="nextStep(5)">5</div>
+                <div class="step-dot" id="dot6" onclick="nextStep(6)">6</div>
             </div>
 
             <form id="packetForm">
@@ -687,6 +738,58 @@
                 </div>
 
                 <div class="form-step" id="step3">
+                    <div class="section-title" style="margin-bottom: 25px; font-size: 1.2rem;">Insurance Information</div>
+                    
+                    <div class="input-grid">
+                        
+                        <div>
+                            <label>Cargo Limit ($)</label>
+                            <input type="text" placeholder="$100,000" required>
+                        </div>
+                        <div>
+                            <label>Cargo Expiry Date</label>
+                            <input type="date" required>
+                        </div>
+                        
+                        <div class="full-width">
+                            <div class="important-note">
+                                <strong>Important:</strong> Carrier’s insurance must cover Broker’s interests, drivers, equipment, and cargo.
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Liability Limit ($)</label>
+                            <input type="text" placeholder="$1,000,000" required>
+                        </div>
+                        <div>
+                            <label>Liability Exp Date</label>
+                            <input type="date" required>
+                        </div>
+
+                        <div>
+                            <label>Insurance Company Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div>
+                            <label>Insurance Phone No</label>
+                            <input type="tel" required>
+                        </div>
+
+                        <div class="full-width">
+                            <div class="important-note">
+                                <strong>Policy Restrictions:</strong> Policies cannot exclude coverage based on location, unattended cargo, unscheduled equipment, fraud, or radius of operation.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(2)">&larr; Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step4">
                     <p style="font-size:1rem; color:#555; margin-bottom:30px;">Upload documents to verify eligibility.
                         <strong>Quick Freight Logistics LLC</strong> must be the Certificate Holder.
                     </p>
@@ -812,12 +915,81 @@
                     </div>
 
                     <div class="actions">
-                        <button type="button" class="btn btn-secondary" onclick="nextStep(2)">&larr; Back</button>
-                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next Step &rarr;</button>
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(3)">&larr; Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(5)">Next Step &rarr;</button>
                     </div>
                 </div>
 
-                <div class="form-step" id="step4">
+                <div class="form-step" id="step5">
+                    <div class="section-title" style="margin-bottom: 20px; font-size: 1.2rem;">Accessorial Rate Sheet</div>
+                    
+                    <div class="rate-container">
+                        <ul class="rate-list">
+                            <li><span class="rate-label">Detention:</span> <span class="rate-value">$35 per hour (after 2 hours)</span></li>
+                            <li><span class="rate-label">Layover:</span> <span class="rate-value">$250 per day</span></li>
+                            <li><span class="rate-label">Truck Order Not Used:</span> <span class="rate-value">$150</span></li>
+                            <li><span class="rate-label">Extra Stops (if applicable):</span> <span class="rate-value">$50 per stop</span></li>
+                            <li><span class="rate-label">Driver Labor:</span> <span class="rate-value">$35 per hour (1 driver)</span></li>
+                            <li><span class="rate-label">Lift Gate:</span> <span class="rate-value">$200</span></li>
+                            <li><span class="rate-label">Tolls:</span> <span class="rate-value">$50, $150 NY Metro</span></li>
+                            <li><span class="rate-label">Weight Ticket:</span> <span class="rate-value">$50</span></li>
+                            <li><span class="rate-label">TWIC:</span> <span class="rate-value">$100</span></li>
+                            <li style="font-style:italic; color:#666;">
+                                <span class="rate-label">Reconsignment:</span> Rate must be mutually agreed upon between both parties.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="input-grid">
+                        
+                        <div class="party-block">
+                            <div class="section-title">Carrier</div>
+                            <div style="margin-top:15px;">
+                                <label>By (Signature)</label>
+                                <input type="text" placeholder="Type name to sign" required>
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Print Name</label>
+                                <input type="text" required>
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Title</label>
+                                <input type="text" required>
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Date</label>
+                                <input type="date" required>
+                            </div>
+                        </div>
+
+                        <div class="party-block">
+                            <div class="section-title">Quick Freight Logistics LLC</div>
+                            <div style="margin-top:15px;">
+                                <label>By (Signature)</label>
+                                <input type="text" placeholder="Authorized Representative">
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Print Name</label>
+                                <input type="text">
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Title</label>
+                                <input type="text">
+                            </div>
+                            <div style="margin-top:15px;">
+                                <label>Date</label>
+                                <input type="date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(4)">&larr; Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(6)">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step6">
                     <label>Broker-Carrier Transportation Agreement</label>
                     <div class="legal-scroll">
                         <h4>1. RECITALS & PARTIES</h4>
@@ -894,7 +1066,7 @@
                     </div>
 
                     <div class="actions">
-                        <button type="button" class="btn btn-secondary" onclick="nextStep(3)">&larr; Back</button>
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(5)">&larr; Back</button>
                         <button type="submit" class="btn btn-primary">AGREE & SUBMIT PACKET</button>
                     </div>
                 </div>
@@ -945,11 +1117,12 @@
 
     <script>
         // --- MULTI-STEP LOGIC ---
+        // UPDATED: Loop now goes up to 6
         function nextStep(targetStep) {
             document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
             document.getElementById('step' + targetStep).classList.add('active');
 
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 6; i++) {
                 const dot = document.getElementById('dot' + i);
                 dot.className = 'step-dot';
                 if (i < targetStep) {
