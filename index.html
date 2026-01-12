@@ -16,7 +16,7 @@
             --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
-        /* FIX: Global Box Sizing Reset to prevent overflow issues */
+        /* Global Box Sizing Fix */
         * {
             box-sizing: border-box;
         }
@@ -76,7 +76,7 @@
             font-size: 1.1rem;
         }
 
-        /* --- NEW: INTRO LAYER STYLES --- */
+        /* --- INTRO LAYER STYLES --- */
         #intro-layer {
             width: 100%;
             background: white;
@@ -85,7 +85,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Changed to flex-start to align content left */
+            align-items: flex-start;
             text-align: left;
             min-height: 400px;
             animation: fadeIn 0.6s ease;
@@ -179,15 +179,16 @@
             display: block;
         }
 
+        /* --- GRID SYSTEM --- */
         .input-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Default 2 columns */
             gap: 25px;
             margin-bottom: 30px;
         }
 
         .full-width {
-            grid-column: span 2;
+            grid-column: span 2; /* Span across both columns */
         }
 
         /* Section Headers inside form */
@@ -521,7 +522,7 @@
             .visual-container {
                 width: 100%;
                 box-shadow: none;
-                /* padding: 30px; */
+                padding: 30px;
             }
 
             .form-container {
@@ -540,18 +541,39 @@
 
         /* Mobile Breakpoint */
         @media (max-width: 768px) {
-
-            .input-grid,
-            .conditional-section {
-                grid-template-columns: 1fr;
+            /* 1. Reduce padding for mobile */
+            .main-wrapper {
+                padding: 15px; 
+            }
+            
+            .form-container {
+                padding: 20px; 
+            }
+            
+            /* 2. KEEP 2-COLUMN GRID (Do NOT force 1fr) */
+            .input-grid, .conditional-section {
+                grid-template-columns: 1fr 1fr; /* Retains side-by-side layout */
+                gap: 15px; /* Reduce gap slightly for mobile */
             }
 
+            /* 3. Ensure Full Width Items still span 2 columns */
             .full-width {
-                grid-column: span 1;
+                grid-column: span 2;
+            }
+            
+            /* 4. Allow Section Title to span across */
+            .section-title {
+                grid-column: span 2;
             }
 
-            .section-title {
-                grid-column: span 1;
+            /* 5. Adjust Font/Padding for side-by-side fit */
+            input, select {
+                padding: 12px 14px; /* Slightly tighter padding */
+                font-size: 14px;
+            }
+            
+            label {
+                font-size: 0.8rem;
             }
 
             .upload-item {
@@ -572,10 +594,13 @@
             }
 
             #intro-layer {
-                /* We can now rely on 100% width due to border-box */
-                margin: -30px;
-                padding: 30px;
-                width: calc(100% + 60px); 
+                margin: -20px; /* Adjusted for smaller container padding */
+                padding: 20px;
+                width: calc(100% + 40px);
+            }
+            
+            #intro-layer img {
+                max-width: 200px;
             }
         }
     </style>
@@ -1323,21 +1348,22 @@
             <img src="Logo1.jpeg" alt="Quick Freight Logistics LLC Logo" class="brand-logo">
 
             <div class="testimonial-card" style="padding: 40px; text-align: left;">
-                <h3 style="color: var(--brand-red); font-size: 1.8rem; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.2;">
+                <h3
+                    style="color: var(--brand-red); font-size: 1.8rem; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1.2;">
                     Carrier Setup Packet
                 </h3>
-                
+
                 <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #ddd;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <strong style="color: var(--brand-dark);">USDOT:</strong> 
+                        <strong style="color: var(--brand-dark);">USDOT:</strong>
                         <span style="color: #555; font-weight: 600;">3535365</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <strong style="color: var(--brand-dark);">MC:</strong> 
+                        <strong style="color: var(--brand-dark);">MC:</strong>
                         <span style="color: #555; font-weight: 600;">1178473</span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
-                        <strong style="color: var(--brand-dark);">SCAC:</strong> 
+                        <strong style="color: var(--brand-dark);">SCAC:</strong>
                         <span style="color: #555; font-weight: 600;">QFLJ</span>
                     </div>
                 </div>
@@ -1355,26 +1381,30 @@
                 </div>
 
                 <div>
-                    <strong style="display: block; color: var(--brand-dark); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Contact Details</strong>
-                    
+                    <strong
+                        style="display: block; color: var(--brand-dark); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Contact
+                        Details</strong>
+
                     <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📞</span> 
+                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📞</span>
                         <span style="color: #555;">937-502-5043</span>
                     </div>
-                    
+
                     <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📠</span> 
+                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📠</span>
                         <span style="color: #555;">937-619-8198</span>
                     </div>
-                    
+
                     <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">✉️</span> 
-                        <a href="mailto:Team@quickfreight.site" style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">Team@quickfreight.site</a>
+                        <span style="color: var(--brand-red); width: 20px; text-align: center;">✉️</span>
+                        <a href="mailto:Team@quickfreight.site"
+                            style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">Team@quickfreight.site</a>
                     </div>
-                    
+
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">🌐</span> 
-                        <a href="http://www.quickfreight.site" target="_blank" style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">www.quickfreight.site</a>
+                        <span style="color: var(--brand-red); width: 20px; text-align: center;">🌐</span>
+                        <a href="http://www.quickfreight.site" target="_blank"
+                            style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">www.quickfreight.site</a>
                     </div>
                 </div>
             </div>
@@ -1393,7 +1423,7 @@
             const header = document.querySelector('.form-header');
             const progress = document.querySelector('.step-progress');
             const form = document.getElementById('packetForm');
-            
+
             header.style.display = 'block';
             progress.style.display = 'flex';
             form.style.display = 'block';
