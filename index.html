@@ -182,13 +182,15 @@
         /* --- GRID SYSTEM --- */
         .input-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Default 2 columns */
+            grid-template-columns: 1fr 1fr;
+            /* Default 2 columns */
             gap: 25px;
             margin-bottom: 30px;
         }
 
         .full-width {
-            grid-column: span 2; /* Span across both columns */
+            grid-column: span 2;
+            /* Span across both columns */
         }
 
         /* Section Headers inside form */
@@ -466,6 +468,91 @@
             background: #d0d0d0;
         }
 
+        /* --- DOCUMENT VIEWER BUTTONS --- */
+        .doc-btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-doc {
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--brand-red);
+            color: var(--brand-red);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .btn-doc:hover {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        /* --- MODAL STYLES --- */
+        .doc-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            height: 90%;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+            background: var(--brand-red);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-body {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-body iframe,
+        .modal-body img {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: contain;
+        }
+
         /* --- RIGHT SIDE: VISUALS --- */
         .visual-container {
             flex: 1;
@@ -538,9 +625,9 @@
                 width: 100%;
             }
 
-            .flex{
-                display: flex; 
-                justify-content: space-between; 
+            .flex {
+                display: flex;
+                justify-content: space-between;
                 align-items: flex-start;
                 gap: 10px;
             }
@@ -548,37 +635,43 @@
 
         /* Mobile Breakpoint */
         @media (max-width: 768px) {
+
             /* 1. Reduce padding for mobile */
             .main-wrapper {
-                padding: 15px; 
+                padding: 15px;
             }
-            
+
             .form-container {
-                padding: 20px; 
+                padding: 20px;
             }
-            
+
             /* 2. KEEP 2-COLUMN GRID (Do NOT force 1fr) */
-            .input-grid, .conditional-section {
-                grid-template-columns: 1fr 1fr; /* Retains side-by-side layout */
-                gap: 15px; /* Reduce gap slightly for mobile */
+            .input-grid,
+            .conditional-section {
+                grid-template-columns: 1fr 1fr;
+                /* Retains side-by-side layout */
+                gap: 15px;
+                /* Reduce gap slightly for mobile */
             }
 
             /* 3. Ensure Full Width Items still span 2 columns */
             .full-width {
                 grid-column: span 2;
             }
-            
+
             /* 4. Allow Section Title to span across */
             .section-title {
                 grid-column: span 2;
             }
 
             /* 5. Adjust Font/Padding for side-by-side fit */
-            input, select {
-                padding: 12px 14px; /* Slightly tighter padding */
+            input,
+            select {
+                padding: 12px 14px;
+                /* Slightly tighter padding */
                 font-size: 14px;
             }
-            
+
             label {
                 font-size: 0.8rem;
             }
@@ -601,18 +694,19 @@
             }
 
             #intro-layer {
-                margin: -20px; /* Adjusted for smaller container padding */
+                margin: -20px;
+                /* Adjusted for smaller container padding */
                 padding: 20px;
                 width: calc(100% + 40px);
             }
-            
+
             #intro-layer img {
                 max-width: 200px;
             }
         }
 
         @media (max-width: 500px) {
-            .flex{
+            .flex {
                 flex-direction: column;
             }
         }
@@ -626,7 +720,7 @@
         <div class="form-container">
 
             <div id="intro-layer">
-                <img src="Logo1.jpeg" alt="Quick Freight Logo">
+                <img src="image/Logo1.jpeg" alt="Quick Freight Logo">
 
                 <div class="intro-text">
                     <div class="section-title" style="margin-bottom: 20px; font-size: 1.4rem;">Welcome</div>
@@ -825,13 +919,40 @@
 
                     </div>
                     <div class="actions">
-                        <button type="button" class="btn btn-secondary" onclick="nextStep(1)">&larr; Back</button>
+                        <button type="button" class="btn btn-secondary" onclick="nextStep(2)">&larr; Back</button>
                         <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next Step &rarr;</button>
                     </div>
                 </div>
 
                 <div class="form-step" id="step3">
                     <div class="section-title" style="margin-bottom: 25px; font-size: 1.2rem;">Insurance Information
+                    </div>
+
+                    <div class="full-width" style="margin-bottom: 30px; margin-top: 10px;">
+                        <div class="important-note" style="padding: 20px;">
+                            <h4
+                                style="color: var(--brand-red); margin: 0 0 10px 0; font-size: 1.1rem; text-transform: uppercase;">
+                                Attention New Carrier</h4>
+                            <p style="margin: 0 0 15px 0; font-weight: 500;">Please send a certificate Holder directly
+                                from your insurance agent to us.</p>
+
+                            <div>
+                                <strong
+                                    style="display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 1.1rem; color: black; background: yellow; border-radius: 6px; padding: 15px; border: 1px solid #d4d400;">CERTIFICATE
+                                    HOLDER SHOULD READ AS FOLLOWS:</strong>
+                                <p style="margin: 0; font-size: 1rem; color: #000; line-height: 1.5;">
+                                    Quick Freight Logistics LLC<br>
+                                    6730 Roosevelt Ave ste 305<br>
+                                    Mailbox #1045<br>
+                                    Franklin, OH 45005
+                                </p>
+                            </div>
+
+                            <p style="margin: 15px 0 0 0;">Email it back to us at: <a
+                                    href="mailto:team@quickfreight.site"
+                                    style="color: var(--brand-red); font-weight: bold; text-decoration: none;">team@quickfreight.site</a>
+                            </p>
+                        </div>
                     </div>
 
                     <div class="input-grid">
@@ -1017,21 +1138,29 @@
                 </div>
 
                 <div class="form-step" id="step5">
-                    <div class="section-title" style="margin-bottom: 20px; font-size: 1.2rem;">Accessorial Rate Sheet</div>
+                    <div class="section-title" style="margin-bottom: 20px; font-size: 1.2rem;">Accessorial Rate Sheet
+                    </div>
 
                     <div class="rate-container">
                         <ul class="rate-list">
-                            <li><span class="rate-label">Detention:</span> <span class="rate-value">$30 per hour (after 2 hours)</span></li>
-                            <li><span class="rate-label">Layover:</span> <span class="rate-value">$250 per day</span></li>
-                            <li><span class="rate-label">Truck Order Not Used:</span> <span class="rate-value">$150</span></li>
-                            <li><span class="rate-label">Extra Stops (if applicable):</span> <span class="rate-value">$50 per stop</span></li>
-                            <li><span class="rate-label">Driver Labor:</span> <span class="rate-value">$35 per hour (1 driver)</span></li>
+                            <li><span class="rate-label">Detention:</span> <span class="rate-value">$30 per hour (after
+                                    2 hours)</span></li>
+                            <li><span class="rate-label">Layover:</span> <span class="rate-value">$250 per day</span>
+                            </li>
+                            <li><span class="rate-label">Truck Order Not Used:</span> <span
+                                    class="rate-value">$150</span></li>
+                            <li><span class="rate-label">Extra Stops (if applicable):</span> <span
+                                    class="rate-value">$50 per stop</span></li>
+                            <li><span class="rate-label">Driver Labor:</span> <span class="rate-value">$35 per hour (1
+                                    driver)</span></li>
                             <li><span class="rate-label">Lift Gate:</span> <span class="rate-value">$125</span></li>
-                            <li><span class="rate-label">Tolls:</span> <span class="rate-value">$50, $150 NY Metro</span></li>
+                            <li><span class="rate-label">Tolls:</span> <span class="rate-value">$50, $150 NY
+                                    Metro</span></li>
                             <li><span class="rate-label">Weight Ticket:</span> <span class="rate-value">$20</span></li>
                             <li><span class="rate-label">TWIC:</span> <span class="rate-value">$100</span></li>
                             <li style="font-style:italic; color:#666;">
-                                <span class="rate-label">Reconsignment:</span> Rate must be mutually agreed upon between both parties.
+                                <span class="rate-label">Reconsignment:</span> Rate must be mutually agreed upon between
+                                both parties.
                             </li>
                         </ul>
                     </div>
@@ -1062,19 +1191,23 @@
                             <div class="section-title">Quick Freight Logistics LLC</div>
                             <div style="margin-top:15px;">
                                 <label>By (Signature)</label>
-                                <input type="text" value="Authorized Representative" readonly style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
+                                <input type="text" value="Shahrazad Abu Mughli" readonly
+                                    style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
                             </div>
                             <div style="margin-top:15px;">
                                 <label>Print Name</label>
-                                <input type="text" value="Quick Freight Logistics LLC" readonly style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
+                                <input type="text" value="Quick Freight Logistics LLC" readonly
+                                    style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
                             </div>
                             <div style="margin-top:15px;">
                                 <label>Title</label>
-                                <input type="text" value="Carrier Relations" readonly style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
+                                <input type="text" value="President" readonly
+                                    style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
                             </div>
                             <div style="margin-top:15px;">
                                 <label>Date</label>
-                                <input type="date" id="brokerDate" readonly style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
+                                <input type="date" id="brokerDate" readonly
+                                    style="background-color: #e9ecef; cursor: not-allowed; color: #555;">
                             </div>
                         </div>
                     </div>
@@ -1162,8 +1295,7 @@
                             in order
                             to secure its account and it will at no time during the term of this agreement and for a
                             period of one
-                            (1) year after the effective date of termination of this agreement, either directly or
-                            indirectly,
+                            (1) year after the date of termination of this agreement, either directly or indirectly,
                             attempt to solicit, divert, by- pass, back-solicit or perform any services for compensation
                             for any
                             account of Broker which Broker has given prior written authorization. In the event that
@@ -1331,6 +1463,129 @@
                             approval by signature of their authorized representatives on the day and date first above
                             noted.
                         </p>
+                        <h4>Loss & Damage Claims</h4>
+                        <p>
+                            - Carrier has sole custody of freight and is liable for loss/damage/delay under 49 U.S.C.
+                            §14706.
+                            <br>
+                            - Claims must be acknowledged within 30 days and resolved within 90 days.
+                            <br>
+                            - Broker may deduct unresolved claims from settlements.
+                            <br>
+                            - Claims must be filed within 9 months of delivery.
+                            <br>
+                            - Federal law governs; Carrier liable for all economic losses, including consequential
+                            damages.
+                            <br>
+                            - Carrier waives salvage offsets and must accept shipper’s determination of salvageability.
+                        </p>
+                        <h4>Perishables</h4>
+                        <p>- Carrier transporting refrigerated/perishable goods must:
+                            <br>
+                            - Inspect refrigeration/heating units monthly.
+                            <br>
+                            - Keep inspection records for 1 year.
+                            <br>
+                            - Maintain adequate fuel levels.
+                            <br>
+                            - Provide insurance carriers with all records related to losses.
+                        </p>
+                        <h4>Hostage Loads</h4>
+                        <p>- Carrier may not withhold freight, refuse delivery, or conceal freight location.
+                            <br>
+                            - Such actions trigger liquidated damages.
+                            <br>
+                            -Waiver of Lien
+                            <br>
+                            - Carrier waives all lien rights over goods.
+                            <br>
+                            - Carrier cannot withhold freight for disputes over pricing or Broker’s credit.
+                        </p>
+                        <h4>Confidentiality & Non‑Solicitation</h4>
+                        <p>- Contract terms cannot be disclosed without consent, except as required by law, to
+                            affiliates, or for rating/auditing.
+                            <br>
+                            - Carrier cannot solicit Broker’s customers if traffic was introduced by Broker.
+                            <br>
+                            - Breach results in 35% commission payable to Broker on revenue from such traffic,
+                            enforceable during contract term and for 12 months thereafter.
+                            <br>
+                            - Carrier must provide documentation to verify revenue
+                        </p>
+
+                        <h4 style="color: #C72E29; font-weight: 800; font-size: 1.1rem;">EQUIPMENT INTERCHANGE ADDENDUM
+                        </h4>
+                        <p>This Equipment Interchange Addendum (“Addendum”) is part of the Broker–Carrier Agreement
+                            between:
+                            <br><br>
+                            1. <strong> Equipment</strong>
+                            <br><br>
+                            “Equipment” includes trailers, containers, chassis, or related equipment interchanged to
+                            Carrier.
+                            <br><br>
+                            2. <strong> Condition & Responsibility</strong>
+                            <br><br>
+                            Carrier accepts Equipment in good condition unless noted at pickup and assumes full care,
+                            custody, and control from pickup until return.
+                            <br><br>
+                            3. <strong> Loss or Damage</strong>
+                            <br><br>
+                            Carrier is responsible for any loss, theft, or damage to Equipment while in its possession,
+                            excluding normal wear and tear, and agrees to reimburse all related costs.
+                            <br><br>
+                            4. <strong>Use of Equipment</strong>
+                            <br><br>
+                            Equipment shall be used only for the authorized shipment and may not be transferred without
+                            prior written approval.
+                            <br><br>
+                            5. <strong>Return</strong>
+                            <br><br>
+                            Carrier shall return Equipment in the same condition received (ordinary wear and tear
+                            excepted) and is responsible for late return, per diem, detention, or storage charges caused
+                            by Carrier.
+                            <br><br>
+                            6. <strong>Insurance & Indemnification</strong>
+                            <br><br>
+                            Carrier’s insurance shall be primary and sufficient to cover Equipment loss or damage.
+                            Carrier agrees to indemnify and hold Broker harmless from claims arising from Carrier’s use
+                            of Equipment.
+                            <br><br>
+                            7. <strong> Governing Law</strong>
+                            <br><br>
+                            This Addendum shall be governed by the laws of the State of [State].
+                        </p>
+
+                        <h4>Settlement of Cargo</h4>
+                        <p>Settlement of Cargo Claims. Cargo claims shall be investigated and settled in accordance with
+                            the
+                            regulations codified at 49 C.F.R. Part 370. Any claim for loss, damage or delay must be in
+                            writing and
+                            received by Carrier within nine months after delivery of all or any portion of the Shipment.
+                            In the event
+                            Carrier fails to deliver the entire Shipment, Carrier must receive any claim within nine
+                            months after a
+                            reasonable time for delivery has passed. Any lawsuit must be filed within two years and one
+                            day from the
+                            date Carrier gives written notice that it has disallowed the claim or any part of it.</p>
+
+                        <h4>Broker’s Compensation</h4>
+                        <p>Carrier shall not claim or demand, in whole or in part, the commission
+                            earned by Broker under this Agreement. In addition, Broker shall not be required to disclose
+                            the amount
+                            of its commission to Carrier. </p>
+
+                        <p>CARRIER shall ensure that CARRIER’s name appears on all shipping
+                            documents, and that BROKER is not listed on the bill of lading as a
+                            carrier. If BROKER’s name appears on any bill of lading as carrier,
+                            CARRIER shall cross out BROKER’S name and insert name of CARRIER
+                            prior to execution.</p>
+                    </div>
+
+                    <div class="doc-btn-grid">
+                        <button type="button" class="btn-doc" onclick="viewDocument('image/MC Authority.jpeg')">MC Authority</button>
+                        <button type="button" class="btn-doc" onclick="viewDocument('image/W-9 Certificate.jpeg')">W-9 Certificate</button>
+                        <button type="button" class="btn-doc" onclick="viewDocument('image/SCAC Certificate.jpeg')">SCAC Certificate</button>
+                        <button type="button" class="btn-doc" onclick="viewDocument('image/Broker Bond.jpeg')">Broker Bond</button>
                     </div>
 
                     <div class="input-grid">
@@ -1358,7 +1613,7 @@
         </div>
 
         <div class="visual-container">
-            <img src="Logo1.jpeg" alt="Quick Freight Logistics LLC Logo" class="brand-logo">
+            <img src="image/Logo1.jpeg" alt="Quick Freight Logistics LLC Logo" class="brand-logo">
 
             <div class="testimonial-card" style="padding: 40px; text-align: left;">
                 <h3
@@ -1381,53 +1636,94 @@
                     </div>
                 </div>
                 <div class="flex">
-                <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #ddd;">
-                    <div style="display: flex; align-items: flex-start; gap: 15px;">
-                        <span style="font-size: 1.2rem;">📍</span>
-                        <p style="margin: 0; color: #666; line-height: 1.6;">
-                            <strong>Quick Freight Logistics LLC</strong><br>
-                            6730 Roosevelt Ave ste 305<br>
-                            Mailbox #1045<br>
-                            Franklin, OH 45005
-                        </p>
-                    </div>
-                </div>
-
-                <div>
-                    <strong
-                        style="display: block; color: var(--brand-dark); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Contact
-                        Details</strong>
-
-                    <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📞</span>
-                        <span style="color: #555;">937-502-5043</span>
+                    <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #ddd;">
+                        <div style="display: flex; align-items: flex-start; gap: 15px;">
+                            <span style="font-size: 1.2rem;">📍</span>
+                            <p style="margin: 0; color: #666; line-height: 1.6;">
+                                <strong>Quick Freight Logistics LLC</strong><br>
+                                6730 Roosevelt Ave ste 305<br>
+                                Mailbox #1045<br>
+                                Franklin, OH 45005
+                            </p>
+                        </div>
                     </div>
 
-                    <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">📠</span>
-                        <span style="color: #555;">937-619-8198</span>
-                    </div>
+                    <div>
+                        <strong
+                            style="display: block; color: var(--brand-dark); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Contact
+                            Details</strong>
 
-                    <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">✉️</span>
-                        <a href="mailto:Team@quickfreight.site"
-                            style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">Team@quickfreight.site</a>
-                    </div>
+                        <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                            <span style="color: var(--brand-red); width: 20px; text-align: center;">📞</span>
+                            <span style="color: #555;">937-502-5043</span>
+                        </div>
 
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="color: var(--brand-red); width: 20px; text-align: center;">🌐</span>
-                        <a href="http://www.quickfreight.site" target="_blank"
-                            style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">www.quickfreight.site</a>
+                        <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                            <span style="color: var(--brand-red); width: 20px; text-align: center;">📠</span>
+                            <span style="color: #555;">937-619-8198</span>
+                        </div>
+
+                        <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                            <span style="color: var(--brand-red); width: 20px; text-align: center;">✉️</span>
+                            <a href="mailto:Team@quickfreight.site"
+                                style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">Team@quickfreight.site</a>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="color: var(--brand-red); width: 20px; text-align: center;">🌐</span>
+                            <a href="http://www.quickfreight.site" target="_blank"
+                                style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">www.quickfreight.site</a>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <div id="docViewer" class="doc-modal">
+        <span class="modal-close" onclick="closeDoc()">&times;</span>
+        <div class="modal-content">
+            <div id="modalBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- NEW: START BUTTON LOGIC ---
+        // --- NEW: DOCUMENT VIEWER LOGIC ---
+        function viewDocument(url) {
+            const modal = document.getElementById('docViewer');
+            const body = document.getElementById('modalBody');
+
+            // Clear previous content
+            body.innerHTML = '';
+
+            // Check extension
+            const ext = url.split('.').pop().toLowerCase();
+
+            if (ext === 'pdf') {
+                body.innerHTML = `<iframe src="${url}"></iframe>`;
+            } else {
+                body.innerHTML = `<img src="${url}" alt="Document">`;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeDoc() {
+            document.getElementById('docViewer').style.display = 'none';
+            document.getElementById('modalBody').innerHTML = '';
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function (event) {
+            const modal = document.getElementById('docViewer');
+            if (event.target == modal) {
+                closeDoc();
+            }
+        }
+
+        // --- START BUTTON LOGIC ---
         function startRegistration() {
             // Hide intro layer
             const intro = document.getElementById('intro-layer');
@@ -1480,36 +1776,29 @@
 
             if (selection === 'yes') {
                 if (yesBox.checked) {
-                    noBox.checked = false; // Uncheck No
+                    noBox.checked = false;
 
-                    // Show Factoring, Hide Bank
                     factoringSection.style.display = 'grid';
                     bankSection.style.display = 'none';
 
-                    // Set/Remove Required
                     factoringInputs.forEach(input => input.setAttribute('required', 'true'));
                     bankInputs.forEach(input => input.removeAttribute('required'));
                 } else {
-                    // Unchecked Yes -> Hide All
                     factoringSection.style.display = 'none';
                     factoringInputs.forEach(input => input.removeAttribute('required'));
                 }
             } else if (selection === 'no') {
                 if (noBox.checked) {
-                    yesBox.checked = false; // Uncheck Yes
+                    yesBox.checked = false;
 
-                    // Hide Factoring, Show Bank
                     factoringSection.style.display = 'none';
                     bankSection.style.display = 'grid';
 
-                    // Set/Remove Required
                     factoringInputs.forEach(input => input.removeAttribute('required'));
                     bankInputs.forEach(input => {
-                        // We set required, but NOT for checkboxes
                         if (input.type !== 'checkbox') input.setAttribute('required', 'true');
                     });
                 } else {
-                    // Unchecked No -> Hide All
                     bankSection.style.display = 'none';
                     bankInputs.forEach(input => input.removeAttribute('required'));
                 }
@@ -1563,19 +1852,15 @@
         });
 
         // --- AUTO-FILL DATE LOGIC (UPDATED) ---
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get today's date in YYYY-MM-DD format
+        document.addEventListener('DOMContentLoaded', function () {
             const today = new Date().toISOString().split('T')[0];
-            
-            // Target the broker date field
             const brokerDateInput = document.getElementById('brokerDate');
-            
-            // Set the value
             if (brokerDateInput) {
                 brokerDateInput.value = today;
             }
         });
     </script>
+
 </body>
 
 </html>
