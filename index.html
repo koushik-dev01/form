@@ -522,7 +522,7 @@
             .visual-container {
                 width: 100%;
                 box-shadow: none;
-                padding: 30px;
+                /* padding: 30px; */
             }
 
             .form-container {
@@ -536,6 +536,13 @@
 
             .checkbox-item {
                 width: 100%;
+            }
+
+            .flex{
+                display: flex; 
+                justify-content: space-between; 
+                align-items: flex-start;
+                gap: 10px;
             }
         }
 
@@ -601,6 +608,12 @@
             
             #intro-layer img {
                 max-width: 200px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .flex{
+                flex-direction: column;
             }
         }
     </style>
@@ -1367,7 +1380,7 @@
                         <span style="color: #555; font-weight: 600;">QFLJ</span>
                     </div>
                 </div>
-
+                <div class="flex">
                 <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #ddd;">
                     <div style="display: flex; align-items: flex-start; gap: 15px;">
                         <span style="font-size: 1.2rem;">📍</span>
@@ -1406,6 +1419,7 @@
                         <a href="http://www.quickfreight.site" target="_blank"
                             style="color: #555; text-decoration: none; border-bottom: 1px dotted #999; transition: 0.2s;">www.quickfreight.site</a>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
